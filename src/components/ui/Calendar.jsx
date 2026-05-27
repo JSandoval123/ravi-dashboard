@@ -1,6 +1,7 @@
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import { useState } from 'react'
+import { format } from 'date-fns'
 
 export default function TradingCalendar({ trades }) {
 
@@ -28,9 +29,9 @@ export default function TradingCalendar({ trades }) {
           Trading Calendar
         </h2>
 
-        <button className="bg-zinc-800 px-4 py-2 rounded-xl border border-zinc-700">
-          May 2026
-        </button>
+        <div className="bg-zinc-800 px-4 py-2 rounded-xl border border-zinc-700 text-sm font-medium">
+            {format(selectedDate, 'MMMM yyyy')}
+          </div>
       </div>
 
       <div className="calendar-dark">
@@ -38,10 +39,15 @@ export default function TradingCalendar({ trades }) {
         <Calendar
           value={selectedDate}
           onChange={setSelectedDate}
+          onActiveStartDateChange={({ activeStartDate }) =>
+            setSelectedDate(activeStartDate)
+           }
           locale="es-ES"
-          calendarType="iso8601"
+          calendarType="iso8601"  
+          showNeighboringMonth={true}  
           prev2Label={null}
           next2Label={null}
+          
 
           tileContent={({ date }) => {
 
