@@ -34,7 +34,8 @@ export default function TradingCalendar({ trades }) {
       <div className="calendar-dark">
 
         <Calendar
-
+          calendarType="gregory"
+          locale="es-ES"
           tileContent={({ date }) => {
 
   const day = date.toISOString().split('T')[0]
