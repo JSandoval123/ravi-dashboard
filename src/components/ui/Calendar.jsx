@@ -39,7 +39,8 @@ const [selectedDate, setSelectedDate] = useState(new Date())
         <Calendar
           value={selectedDate}
           onChange={setSelectedDate}
-          calendarType="iso8601"
+          locale="es-ES"
+          calendarType="ISO 8601"
           prev2Label={null}
           next2Label={null}
 
