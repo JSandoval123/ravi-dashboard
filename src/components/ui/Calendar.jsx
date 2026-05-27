@@ -16,8 +16,8 @@ const [selectedDate, setSelectedDate] = useState(new Date())
     const tradeCount = dayTrades.length
 
     return dayTrades.reduce(
-      (acc, t) => acc + Number(t.pnl || 0),
-      0
+      (acc, t) => acc + Number(t.pnl || 0)
+      
     )
   }
 
@@ -37,14 +37,13 @@ const [selectedDate, setSelectedDate] = useState(new Date())
       <div className="calendar-dark">
 
         <Calendar
-  value={selectedDate}
-  onChange={setSelectedDate}
-  locale="es-ES"
-  calendarType="gregory"
-  prev2Label={null}
-  next2Label={null}
+          value={selectedDate}
+          onChange={setSelectedDate}
+          calendarType="iso8601"
+          prev2Label={null}
+          next2Label={null}
 
-  tileContent={({ date }) => {
+          tileContent={({ date }) => {
 
     const day = date.toISOString().split('T')[0]
 
