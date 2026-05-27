@@ -3,10 +3,11 @@ import 'react-calendar/dist/Calendar.css'
 import { useState } from 'react'
 
 export default function TradingCalendar({ trades }) {
+const [selectedDate, setSelectedDate] = useState(new Date())
 
   function getDayPnL(date) {
 
-    const [selectedDate, setSelectedDate] = useState(new Date())
+    
     const day = date.toISOString().split('T')[0]
 
     const dayTrades = trades.filter(
@@ -81,19 +82,19 @@ export default function TradingCalendar({ trades }) {
 
       </div>
     )
-  }}
+    }}
 
-tileClassName={({ date }) => {
+      tileClassName={({ date }) => {
 
-  const pnl = getDayPnL(date)
+        const pnl = getDayPnL(date)
 
-  if (pnl > 0)
-    return 'calendar-profit'
+        if (pnl > 0)
+          return 'calendar-profit'
 
-  if (pnl < 0)
-    return 'calendar-loss'
-}}
-/>
+        if (pnl < 0)
+          return 'calendar-loss'
+      }}
+      />
 
       </div>
     </div>
