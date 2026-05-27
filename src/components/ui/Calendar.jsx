@@ -82,21 +82,18 @@ export default function TradingCalendar({ trades }) {
       </div>
     )
   }}
-  
 
+tileClassName={({ date }) => {
 
-          tileClassName={({ date }) => {
+  const pnl = getDayPnL(date)
 
-            const pnl = getDayPnL(date)
+  if (pnl > 0)
+    return 'calendar-profit'
 
-            if (pnl > 0)
-              return 'calendar-profit'
-
-            if (pnl < 0)
-              return 'calendar-loss'
-          }}
-
-        />
+  if (pnl < 0)
+    return 'calendar-loss'
+}}
+/>
 
       </div>
     </div>
