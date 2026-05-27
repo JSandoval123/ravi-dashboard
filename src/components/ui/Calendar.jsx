@@ -1,10 +1,12 @@
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
+import { useState } from 'react'
 
 export default function TradingCalendar({ trades }) {
 
   function getDayPnL(date) {
 
+    const [selectedDate, setSelectedDate] = useState(new Date())
     const day = date.toISOString().split('T')[0]
 
     const dayTrades = trades.filter(
@@ -34,47 +36,54 @@ export default function TradingCalendar({ trades }) {
       <div className="calendar-dark">
 
         <Calendar
-          calendarType="gregory"
-          locale="es-ES"
-          tileContent={({ date }) => {
+  value={selectedDate}
+  onChange={setSelectedDate}
+  locale="es-ES"
+  calendarType="gregory"
+  prev2Label={null}
+  next2Label={null}
 
-  const day = date.toISOString().split('T')[0]
+  tileContent={({ date }) => {
 
-  const dayTrades = trades.filter(
-    t => t.trade_date === day
-  )
+    const day = date.toISOString().split('T')[0]
 
-  const pnl = dayTrades.reduce(
-    (acc, t) => acc + Number(t.pnl || 0),
-    0
-  )
+    const dayTrades = trades.filter(
+      t => t.trade_date === day
+    )
 
-  const tradeCount = dayTrades.length
+    const pnl = dayTrades.reduce(
+      (acc, t) => acc + Number(t.pnl || 0),
+      0
+    )
 
-  if (pnl === 0) return null
+    const tradeCount = dayTrades.length
 
-  return (
-    <div className="mt-2">
+    if (pnl === 0) return null
 
-      <div
-        className={`text-xs font-bold ${
-          pnl > 0
-            ? 'text-emerald-400'
-            : 'text-red-400'
-        }`}
-      >
-        {pnl > 0 ? '+' : ''}
-        {pnl.toFixed(2)}
+    return (
+      <div className="mt-2">
+
+        <div
+          className={`text-xs font-bold ${
+            pnl > 0
+              ? 'text-emerald-400'
+              : 'text-red-400'
+          }`}
+        >
+          {pnl > 0 ? '+' : ''}
+          {pnl.toFixed(2)}
+        </div>
+
+        <div className="text-[10px] text-zinc-400 mt-1">
+          {tradeCount} trade
+          {tradeCount > 1 ? 's' : ''}
+        </div>
+
       </div>
+    )
+  }}
+  
 
-      <div className="text-[10px] text-zinc-400 mt-1">
-        {tradeCount} trade
-        {tradeCount > 1 ? 's' : ''}
-      </div>
-
-    </div>
-  )
-}}
 
           tileClassName={({ date }) => {
 
