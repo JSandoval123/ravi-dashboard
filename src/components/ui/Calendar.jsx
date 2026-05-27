@@ -1,7 +1,6 @@
 import Calendar from 'react-calendar'
 import 'react-calendar/dist/Calendar.css'
 import { useState } from 'react'
-import { format } from 'date-fns'
 
 export default function TradingCalendar({ trades }) {
 
@@ -25,99 +24,100 @@ export default function TradingCalendar({ trades }) {
   }
 
   return (
+
     <div className="bg-zinc-900 rounded-3xl p-6 border border-zinc-800">
 
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold">
-          Trading Calendar
-        </h2>
-
-        <div className="bg-zinc-800 px-4 py-2 rounded-xl border border-zinc-700 text-sm font-medium">
-            {format(activeDate, 'MMMM yyyy')}
-          </div>
-      </div>
+      <h2 className="text-2xl font-bold mb-6">
+        Trading Calendar
+      </h2>
 
       <div className="calendar-dark">
 
         <Calendar
-  value={selectedDate}
-  activeStartDate={activeDate}
 
-  onChange={setSelectedDate}
+          value={selectedDate}
 
-  onActiveStartDateChange={({ activeStartDate }) => {
-    setActiveDate(activeStartDate)
-  }}
+          activeStartDate={activeDate}
 
-  locale="es-ES"
-  calendarType="iso8601"
+          onChange={(value) => {
+            setSelectedDate(value)
+          }}
 
-  showNeighboringMonth={true}
+          onActiveStartDateChange={({ activeStartDate }) => {
+            setActiveDate(activeStartDate)
+          }}
 
-  prev2Label={null}
-  next2Label={null}
+          locale="es-ES"
 
-  prevLabel="‹"
-  nextLabel="›"
+          calendarType="iso8601"
 
-  navigationLabel={({ date }) =>
-    format(date, 'MMMM yyyy')
-  }
-  tileContent={({ date }) => {
+          showNeighboringMonth={true}
 
-    const day = date.toISOString().split('T')[0]
+          prev2Label={null}
 
-    const dayTrades = trades.filter(
-      t => t.trade_date === day
-    )
+          next2Label={null}
 
-    const pnl = dayTrades.reduce(
-      (acc, t) => acc + Number(t.pnl || 0),
-      0
-    )
+          prevLabel="‹"
 
-    const tradeCount = dayTrades.length
+          nextLabel="›"
 
-    if (pnl === 0) return null
+          tileContent={({ date }) => {
 
-    return (
-      <div className="mt-2">
+            const day = date.toISOString().split('T')[0]
 
-        <div
-          className={`text-xs font-bold ${
-            pnl > 0
-              ? 'text-emerald-400'
-              : 'text-red-400'
-          }`}
-        >
-          {pnl > 0 ? '+' : ''}
-          {pnl.toFixed(2)}
-        </div>
+            const dayTrades = trades.filter(
+              t => t.trade_date === day
+            )
 
-        <div className="text-[10px] text-zinc-400 mt-1">
-          {tradeCount} trade
-          {tradeCount > 1 ? 's' : ''}
-        </div>
+            const pnl = dayTrades.reduce(
+              (acc, t) => acc + Number(t.pnl || 0),
+              0
+            )
+
+            const tradeCount = dayTrades.length
+
+            if (pnl === 0) return null
+
+            return (
+
+              <div className="mt-2">
+
+                <div
+                  className={`text-xs font-bold ${
+                    pnl > 0
+                      ? 'text-emerald-400'
+                      : 'text-red-400'
+                  }`}
+                >
+                  {pnl > 0 ? '+' : ''}
+                  {pnl.toFixed(2)}
+                </div>
+
+                <div className="text-[10px] text-zinc-400 mt-1">
+                  {tradeCount} trade
+                  {tradeCount > 1 ? 's' : ''}
+                </div>
+
+              </div>
+            )
+          }}
+
+          tileClassName={({ date }) => {
+
+            const pnl = getDayPnL(date)
+
+            if (pnl > 0)
+              return 'calendar-profit'
+
+            if (pnl < 0)
+              return 'calendar-loss'
+
+            return ''
+          }}
+        />
 
       </div>
-    )
-  }}
 
-  tileClassName={({ date }) => {
-
-    const pnl = getDayPnL(date)
-
-    if (pnl > 0)
-      return 'calendar-profit'
-
-    if (pnl < 0)
-      return 'calendar-loss'
-
-    return ''
-  }}
-/>
-
-      </div>
     </div>
   )
 }
