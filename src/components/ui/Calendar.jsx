@@ -5,7 +5,10 @@ import { format } from 'date-fns'
 
 export default function TradingCalendar({ trades }) {
 
-  const [selectedDate, setSelectedDate] = useState(new Date())
+  const today = new Date()
+
+  const [selectedDate, setSelectedDate] = useState(today)
+  const [activeDate, setActiveDate] = useState(today)
 
   function getDayPnL(date) {
 
@@ -30,78 +33,89 @@ export default function TradingCalendar({ trades }) {
         </h2>
 
         <div className="bg-zinc-800 px-4 py-2 rounded-xl border border-zinc-700 text-sm font-medium">
-            {format(selectedDate, 'MMMM yyyy')}
+            {format(activeDate, 'MMMM yyyy')}
           </div>
       </div>
 
       <div className="calendar-dark">
 
         <Calendar
-          value={selectedDate}
-          onChange={setSelectedDate}
-          onActiveStartDateChange={({ activeStartDate }) =>
-            setSelectedDate(activeStartDate)
-           }
-          locale="es-ES"
-          calendarType="iso8601"  
-          showNeighboringMonth={true}  
-          prev2Label={null}
-          next2Label={null}
-          
+  value={selectedDate}
+  activeStartDate={activeDate}
 
-          tileContent={({ date }) => {
+  onChange={setSelectedDate}
 
-            const day = date.toISOString().split('T')[0]
+  onActiveStartDateChange={({ activeStartDate }) => {
+    setActiveDate(activeStartDate)
+  }}
 
-            const dayTrades = trades.filter(
-              t => t.trade_date === day
-            )
+  locale="es-ES"
+  calendarType="iso8601"
 
-            const pnl = dayTrades.reduce(
-              (acc, t) => acc + Number(t.pnl || 0),
-              0
-            )
+  showNeighboringMonth={true}
 
-            const tradeCount = dayTrades.length
+  prev2Label={null}
+  next2Label={null}
 
-            if (pnl === 0) return null
+  prevLabel="‹"
+  nextLabel="›"
 
-            return (
-              <div className="mt-2">
+  navigationLabel={({ date }) =>
+    format(date, 'MMMM yyyy')
+  }
+  tileContent={({ date }) => {
 
-                <div
-                  className={`text-xs font-bold ${
-                    pnl > 0
-                      ? 'text-emerald-400'
-                      : 'text-red-400'
-                  }`}
-                >
-                  {pnl > 0 ? '+' : ''}
-                  {pnl.toFixed(2)}
-                </div>
+    const day = date.toISOString().split('T')[0]
 
-                <div className="text-[10px] text-zinc-400 mt-1">
-                  {tradeCount} trade
-                  {tradeCount > 1 ? 's' : ''}
-                </div>
+    const dayTrades = trades.filter(
+      t => t.trade_date === day
+    )
 
-              </div>
-            )
-          }}
+    const pnl = dayTrades.reduce(
+      (acc, t) => acc + Number(t.pnl || 0),
+      0
+    )
 
-          tileClassName={({ date }) => {
+    const tradeCount = dayTrades.length
 
-            const pnl = getDayPnL(date)
+    if (pnl === 0) return null
 
-            if (pnl > 0)
-              return 'calendar-profit'
+    return (
+      <div className="mt-2">
 
-            if (pnl < 0)
-              return 'calendar-loss'
+        <div
+          className={`text-xs font-bold ${
+            pnl > 0
+              ? 'text-emerald-400'
+              : 'text-red-400'
+          }`}
+        >
+          {pnl > 0 ? '+' : ''}
+          {pnl.toFixed(2)}
+        </div>
 
-            return ''
-          }}
-        />
+        <div className="text-[10px] text-zinc-400 mt-1">
+          {tradeCount} trade
+          {tradeCount > 1 ? 's' : ''}
+        </div>
+
+      </div>
+    )
+  }}
+
+  tileClassName={({ date }) => {
+
+    const pnl = getDayPnL(date)
+
+    if (pnl > 0)
+      return 'calendar-profit'
+
+    if (pnl < 0)
+      return 'calendar-loss'
+
+    return ''
+  }}
+/>
 
       </div>
     </div>
