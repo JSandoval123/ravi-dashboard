@@ -1,6 +1,8 @@
 import MonthlyChart from '../ui/MonthlyChart'
+import { Link, useLocation } from 'react-router-dom'
 
 export default function Sidebar({ trades }) {
+const location = useLocation()
 
   const items = [
     'Dashboard',
@@ -21,16 +23,31 @@ export default function Sidebar({ trades }) {
 
       <div className="space-y-2">
 
-        {items.map((item) => (
+        {items.map((item) => {
 
-          <button
-            key={item}
-            className="w-full text-left px-4 py-3 rounded-2xl text-zinc-300 hover:bg-zinc-800 hover:text-white transition"
-          >
-            {item}
-          </button>
+  const path =
+    item === 'Dashboard'
+      ? '/'
+      : `/${item.toLowerCase().replace(' ', '-')}`
 
-        ))}
+  const active = location.pathname === path
+
+  return (
+
+    <Link
+      key={item}
+      to={path}
+      className={`block w-full text-left px-4 py-3 rounded-2xl transition ${
+        active
+          ? 'bg-zinc-800 text-white'
+          : 'text-zinc-300 hover:bg-zinc-800 hover:text-white'
+      }`}
+    >
+      {item}
+    </Link>
+
+  )
+})}
 
       </div>
         <div className="mt-10">

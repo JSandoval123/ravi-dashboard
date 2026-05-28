@@ -1,23 +1,16 @@
 import MonthlyChart from '../components/ui/MonthlyChart'
-import Sidebar from '../components/layout/Sidebar'
-import StatsPanel from '../components/layout/StatsPanel'
 import useTrades from '../hooks/useTrades'
 import Card from '../components/ui/Card'
 import Chart from '../components/ui/Chart'
 import TradingCalendar from '../components/ui/Calendar'
 import RecentTrades from '../components/ui/RecentTrades'
+import AppLayout from '../components/layout/AppLayout'
 
 export default function Dashboard() {
   const trades = useTrades()
   return (
-
-  <div className="flex bg-zinc-950 text-white">
-
-    <Sidebar trades={trades} />
-
-    <div className="flex-1 p-8 overflow-auto">
-
-      <h1 className="text-5xl font-bold">
+    <AppLayout>
+  <h1 className="text-5xl font-bold">
         Dashboard
       </h1>
 
@@ -92,10 +85,6 @@ export default function Dashboard() {
           </div>
             
 
-      </div>
-        <StatsPanel trades={trades} />
-      </div>
-
-          
+          </AppLayout>
 )
 }
