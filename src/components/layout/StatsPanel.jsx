@@ -128,7 +128,7 @@ export default function StatsPanel({ trades }) {
                 Total Trades
               </p>
 
-              <h3 className="text-3xl font-bold mt-2">
+              <h3 className="text-2xl font-bold mt-2">
                 {totalTrades}
               </h3>
 
@@ -160,7 +160,7 @@ export default function StatsPanel({ trades }) {
                 Win Rate
               </p>
 
-              <h3 className="text-3xl font-bold mt-2">
+              <h3 className="text-2xl font-bold mt-2">
 
                 {(
                   (
