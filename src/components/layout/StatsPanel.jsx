@@ -98,7 +98,7 @@ export default function StatsPanel({ trades }) {
 
   return (
 
-    <div className="w-[320px] bg-zinc-900 border-l border-zinc-800 min-h-screen p-6">
+    <div className="w-[260px] bg-zinc-900 border-l border-zinc-800 min-h-screen p-6">
 
       <h2 className="text-2xl font-bold mb-8">
         Performance

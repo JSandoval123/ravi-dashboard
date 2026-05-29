@@ -15,7 +15,7 @@ const location = useLocation()
   ]
 
   return (
-    <div className="w-[260px] bg-zinc-900 border-r border-zinc-800 min-h-screen p-6">
+    <div className="w-[220px] bg-zinc-900 border-r border-zinc-800 min-h-screen p-6">
 
       <h1 className="text-2xl font-bold text-white mb-10">
         Ravi Dashboard

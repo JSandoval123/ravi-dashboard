@@ -10,17 +10,13 @@ export default function Dashboard() {
   const trades = useTrades()
   return (
     <AppLayout>
-  <h1 className="text-5xl font-bold">
-        Dashboard
-      </h1>
-
       <p className="text-zinc-400 mt-2">
         Trading Performance Analytics
       </p>
 
       {/* KPI CARDS */}
 
-      <div className="grid grid-cols-4 gap-4 mt-10">
+      <div className="grid grid-cols-4 gap-3 mt-10">
 
         <Card
           title="Net PnL"
