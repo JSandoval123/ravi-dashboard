@@ -18,9 +18,11 @@ const location = useLocation()
     <div className="w-[220px] bg-zinc-900 border-r border-zinc-800 min-h-screen p-6">
 
       <h1 className="text-2xl font-bold text-white mb-10">
-        Ravi Dashboard
+        Ravi
       </h1>
-
+        <p className="text-zinc-250 mt-2">
+        Trading Performance Analytics
+      </p>
       <div className="space-y-2">
 
         {items.map((item) => {
@@ -50,24 +52,7 @@ const location = useLocation()
 })}
 
       </div>
-        <div className="mt-10">
-
-  <div className="bg-zinc-800 rounded-3xl p-4 border border-zinc-700">
-
-    <h3 className="text-sm font-bold mb-4 text-zinc-300">
-      Monthly Performance
-    </h3>
-
-    <div className="h-[180px]">
-      <MonthlyChart
-        trades={trades}
-        compact
-      />
-    </div>
-
-  </div>
-
-</div>
+        
     </div>
     
   )

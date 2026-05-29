@@ -45,7 +45,7 @@ export default function MonthlyChart({ trades, compact }) {
 
     <div
       className={`bg-zinc-900 rounded-3xl border border-zinc-800 p-4 ${
-        compact ? 'h-[180px]' : 'h-[350px]'
+        compact ? 'h-[180px]' : 'h-[180px]'
       }`}
     >
 
@@ -57,7 +57,10 @@ export default function MonthlyChart({ trades, compact }) {
 
       <ResponsiveContainer width="100%" height="100%">
 
-        <BarChart data={data}>
+        <BarChart
+         data={data}
+         barCategoryGap="70%"
+         >
 
           <XAxis
             dataKey="month"
@@ -66,34 +69,36 @@ export default function MonthlyChart({ trades, compact }) {
           />
 
           {!compact && (
-            <YAxis stroke="#71717a" />
+            <YAxis
+             stroke="#71717a" 
+             domain={[0, 'dataMax + 20']}
+             />
           )}
 
           <Tooltip
-            contentStyle={{
-              backgroundColor: '#18181b',
-              border: '1px solid #27272a',
-              borderRadius: '12px',
-              color: 'white',
-            }}
-
-            labelStyle={{
-              color: '#a1a1aa',
-            }}
-
-            itemStyle={{
-              color: '#22c55e',
-            }}
-
-            formatter={(value) => [
-              `$${Number(value).toFixed(2)}`,
-              'PnL'
-            ]}
-          />
+  cursor={{ fill: 'transparent' }}
+  contentStyle={{
+    backgroundColor: '#18181b',
+    border: '1px solid #27272a',
+    borderRadius: '12px',
+    color: 'white',
+  }}
+  labelStyle={{
+    color: '#a1a1aa',
+  }}
+  itemStyle={{
+    color: '#22c55e',
+  }}
+  formatter={(value) => [
+    `$${Number(value).toFixed(2)}`,
+    'PnL'
+  ]}
+/>
 
           <Bar
             dataKey="pnl"
-            radius={[8, 8, 0, 0]}
+            radius={[4, 4, 0, 0]}
+            barSize={20}
           >
 
             {data.map((entry, index) => (

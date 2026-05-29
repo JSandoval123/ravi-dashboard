@@ -10,9 +10,7 @@ export default function Dashboard() {
   const trades = useTrades()
   return (
     <AppLayout>
-      <p className="text-zinc-400 mt-2">
-        Trading Performance Analytics
-      </p>
+      
 
       {/* KPI CARDS */}
 

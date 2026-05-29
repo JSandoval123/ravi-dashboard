@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabase'
 import AppLayout from '../components/layout/AppLayout'
+import MonthlyChart from '../components/ui/MonthlyChart'
 
 export default function Analytics() {
 
@@ -48,7 +49,9 @@ export default function Analytics() {
     <p className="text-zinc-400 mt-2 mb-8">
         Monthly trading analytics
       </p>
-
+    <div className="mb-8 w-full max-w-[1000px]">
+  <MonthlyChart trades={trades} />
+    </div>
     <div className="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-x-auto">
 
       <table className="w-full">
